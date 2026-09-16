@@ -59,15 +59,18 @@ definitions, and which committed JSON each figure is drawn from.
 Compile with `pdflatex` (two passes). Figures are produced from the committed
 JSONs by `paper/figures/build_figures.py`.
 
-## Follow-up falsification (Gate D pilot)
+## Follow-up falsification (Gate D)
 
 `python src/gate_d.py` (and `--tag izh`) runs the post-ICRA readout-invariance
-check on the committed captures: whether the tracking advantage survives the
-best causal linear readout of the spike stream. The one-page summary and the
-raw numbers are in `results/gate_d*.json`; see `docs/REPRODUCE.md` for the
-protocol and the pilot verdict. The dead-substrate null stays at the trivial
-floor, but the task is not linearly recoverable from any substrate - a
-whole-loop, not a readout-invariant, effect.
+check on the committed 6-seed captures: whether the tracking advantage
+survives the best causal linear readout of the spike stream. The raw numbers,
+paired statistics and verdict are in `results/gate_d*.json`; see
+`docs/REPRODUCE.md` for the protocol. Result: the matched dead-substrate null
+is validated (poisson == trivial floor in both substrates); neural spikes
+carry task information above the dead null (rate p~0.015, izh p<0.001) but no
+substrate supports a linear readout above a dummy predictor, the
+neural-vs-uncoupled loop separation is not linearly recoverable (readout
+invariance falsified), and the spike->command edge is not linear-decodable.
 
 ## License and third-party notices
 

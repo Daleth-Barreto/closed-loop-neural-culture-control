@@ -1,0 +1,312 @@
+{
+  "duration_sec": 12.0,
+  "tps": 40,
+  "profile": [
+    [
+      0.0,
+      0.5
+    ],
+    [
+      4.0,
+      0.8
+    ],
+    [
+      8.0,
+      0.5
+    ]
+  ],
+  "seeds": [
+    1,
+    7,
+    13,
+    29,
+    55,
+    91
+  ],
+  "threshold": -1400,
+  "substrate": "rate",
+  "poisson_lam": 0.14,
+  "notes": "task-driven capture; counts[64]+state per tick (steps: counts,x aligned by tick.iteration; state hold-last from bridge TSV at 50 Hz) | 6-seed Gate D battery: seeds 1,13,55,91 captured fresh; 7,29 reuse committed captures",
+  "runs": [
+    {
+      "mode": "neural",
+      "seed": 7,
+      "file": "f1_capture_neural_s7.json",
+      "ticks": 500,
+      "wall": 51.3,
+      "fallen": false,
+      "n_spikes_mean": 8.9,
+      "provenance": "committed 2026-09-14 captures (reused, not re-run)"
+    },
+    {
+      "mode": "neural",
+      "seed": 29,
+      "file": "f1_capture_neural_s29.json",
+      "ticks": 500,
+      "wall": 53.4,
+      "fallen": false,
+      "n_spikes_mean": 8.9,
+      "provenance": "committed 2026-09-14 captures (reused, not re-run)"
+    },
+    {
+      "mode": "zero",
+      "seed": 7,
+      "file": "f1_capture_zero_s7.json",
+      "ticks": 500,
+      "wall": 53.2,
+      "fallen": false,
+      "n_spikes_mean": 7.81,
+      "provenance": "committed 2026-09-14 captures (reused, not re-run)"
+    },
+    {
+      "mode": "zero",
+      "seed": 29,
+      "file": "f1_capture_zero_s29.json",
+      "ticks": 500,
+      "wall": 50.6,
+      "fallen": false,
+      "n_spikes_mean": 8.09,
+      "provenance": "committed 2026-09-14 captures (reused, not re-run)"
+    },
+    {
+      "mode": "random",
+      "seed": 7,
+      "file": "f1_capture_random_s7.json",
+      "ticks": 500,
+      "wall": 54.6,
+      "fallen": false,
+      "n_spikes_mean": 9.04,
+      "provenance": "committed 2026-09-14 captures (reused, not re-run)"
+    },
+    {
+      "mode": "random",
+      "seed": 29,
+      "file": "f1_capture_random_s29.json",
+      "ticks": 500,
+      "wall": 57.0,
+      "fallen": false,
+      "n_spikes_mean": 9.14,
+      "provenance": "committed 2026-09-14 captures (reused, not re-run)"
+    },
+    {
+      "mode": "mask0.5",
+      "seed": 7,
+      "file": "f1_capture_mask0.5_s7.json",
+      "ticks": 500,
+      "wall": 49.5,
+      "fallen": false,
+      "n_spikes_mean": 5.59,
+      "provenance": "committed 2026-09-14 captures (reused, not re-run)"
+    },
+    {
+      "mode": "mask0.5",
+      "seed": 29,
+      "file": "f1_capture_mask0.5_s29.json",
+      "ticks": 500,
+      "wall": 55.0,
+      "fallen": false,
+      "n_spikes_mean": 3.61,
+      "provenance": "committed 2026-09-14 captures (reused, not re-run)"
+    },
+    {
+      "mode": "poisson",
+      "seed": 7,
+      "file": "f1_capture_poisson_s7.json",
+      "ticks": 500,
+      "wall": 52.0,
+      "fallen": false,
+      "n_spikes_mean": 9.21,
+      "provenance": "committed 2026-09-14 captures (reused, not re-run)"
+    },
+    {
+      "mode": "poisson",
+      "seed": 29,
+      "file": "f1_capture_poisson_s29.json",
+      "ticks": 500,
+      "wall": 43.4,
+      "fallen": false,
+      "n_spikes_mean": 8.93,
+      "provenance": "committed 2026-09-14 captures (reused, not re-run)"
+    },
+    {
+      "mode": "neural",
+      "seed": 1,
+      "file": "f1_capture_neural_s1.json",
+      "ticks": 500,
+      "wall": 29.9,
+      "fallen": false,
+      "n_spikes_mean": 8.82
+    },
+    {
+      "mode": "neural",
+      "seed": 13,
+      "file": "f1_capture_neural_s13.json",
+      "ticks": 500,
+      "wall": 32.2,
+      "fallen": false,
+      "n_spikes_mean": 8.75
+    },
+    {
+      "mode": "neural",
+      "seed": 55,
+      "file": "f1_capture_neural_s55.json",
+      "ticks": 500,
+      "wall": 30.3,
+      "fallen": false,
+      "n_spikes_mean": 8.67
+    },
+    {
+      "mode": "neural",
+      "seed": 91,
+      "file": "f1_capture_neural_s91.json",
+      "ticks": 500,
+      "wall": 31.6,
+      "fallen": false,
+      "n_spikes_mean": 8.47
+    },
+    {
+      "mode": "zero",
+      "seed": 1,
+      "file": "f1_capture_zero_s1.json",
+      "ticks": 500,
+      "wall": 31.6,
+      "fallen": false,
+      "n_spikes_mean": 7.61
+    },
+    {
+      "mode": "zero",
+      "seed": 13,
+      "file": "f1_capture_zero_s13.json",
+      "ticks": 500,
+      "wall": 32.5,
+      "fallen": false,
+      "n_spikes_mean": 7.9
+    },
+    {
+      "mode": "zero",
+      "seed": 55,
+      "file": "f1_capture_zero_s55.json",
+      "ticks": 500,
+      "wall": 33.0,
+      "fallen": false,
+      "n_spikes_mean": 8.18
+    },
+    {
+      "mode": "zero",
+      "seed": 91,
+      "file": "f1_capture_zero_s91.json",
+      "ticks": 500,
+      "wall": 33.7,
+      "fallen": false,
+      "n_spikes_mean": 7.96
+    },
+    {
+      "mode": "random",
+      "seed": 1,
+      "file": "f1_capture_random_s1.json",
+      "ticks": 500,
+      "wall": 38.6,
+      "fallen": false,
+      "n_spikes_mean": 8.98
+    },
+    {
+      "mode": "random",
+      "seed": 13,
+      "file": "f1_capture_random_s13.json",
+      "ticks": 500,
+      "wall": 33.1,
+      "fallen": false,
+      "n_spikes_mean": 9.09
+    },
+    {
+      "mode": "random",
+      "seed": 55,
+      "file": "f1_capture_random_s55.json",
+      "ticks": 500,
+      "wall": 32.2,
+      "fallen": false,
+      "n_spikes_mean": 9.08
+    },
+    {
+      "mode": "random",
+      "seed": 91,
+      "file": "f1_capture_random_s91.json",
+      "ticks": 500,
+      "wall": 19.9,
+      "fallen": false,
+      "n_spikes_mean": 9.53
+    },
+    {
+      "mode": "mask0.5",
+      "seed": 1,
+      "file": "f1_capture_mask0.5_s1.json",
+      "ticks": 500,
+      "wall": 33.3,
+      "fallen": false,
+      "n_spikes_mean": 4.23
+    },
+    {
+      "mode": "mask0.5",
+      "seed": 13,
+      "file": "f1_capture_mask0.5_s13.json",
+      "ticks": 500,
+      "wall": 29.9,
+      "fallen": false,
+      "n_spikes_mean": 4.09
+    },
+    {
+      "mode": "mask0.5",
+      "seed": 55,
+      "file": "f1_capture_mask0.5_s55.json",
+      "ticks": 500,
+      "wall": 30.3,
+      "fallen": false,
+      "n_spikes_mean": 3.83
+    },
+    {
+      "mode": "mask0.5",
+      "seed": 91,
+      "file": "f1_capture_mask0.5_s91.json",
+      "ticks": 500,
+      "wall": 32.8,
+      "fallen": false,
+      "n_spikes_mean": 2.15
+    },
+    {
+      "mode": "poisson",
+      "seed": 1,
+      "file": "f1_capture_poisson_s1.json",
+      "ticks": 500,
+      "wall": 31.5,
+      "fallen": false,
+      "n_spikes_mean": 8.91
+    },
+    {
+      "mode": "poisson",
+      "seed": 13,
+      "file": "f1_capture_poisson_s13.json",
+      "ticks": 500,
+      "wall": 32.3,
+      "fallen": false,
+      "n_spikes_mean": 8.98
+    },
+    {
+      "mode": "poisson",
+      "seed": 55,
+      "file": "f1_capture_poisson_s55.json",
+      "ticks": 500,
+      "wall": 31.8,
+      "fallen": false,
+      "n_spikes_mean": 8.91
+    },
+    {
+      "mode": "poisson",
+      "seed": 91,
+      "file": "f1_capture_poisson_s91.json",
+      "ticks": 500,
+      "wall": 33.2,
+      "fallen": false,
+      "n_spikes_mean": 8.73
+    }
+  ]
+}

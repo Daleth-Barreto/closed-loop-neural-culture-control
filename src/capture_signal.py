@@ -24,12 +24,18 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--substrate", default="rate",
                         choices=["rate", "izh"])
+    parser.add_argument("--seeds", nargs="+", type=int, default=None,
+                        help="seeds to capture (default: %(default)s override -> [7, 29])")
+    parser.add_argument("--index", default=None,
+                        help="index filename override (default f1_capture_index.json)")
     args = parser.parse_args()
+    seeds = SEEDS if args.seeds is None else args.seeds
     tag = "" if args.substrate == "rate" else ("_" + args.substrate)
+    index_name = args.index or ("f1_capture_index%s.json" % tag)
     RES.mkdir(exist_ok=True)
     runs = []
     for mode in al.MODES:
-        for seed in SEEDS:
+        for seed in seeds:
             r = al.run_mode(mode, seed=seed, task=PROFILE, capture=True,
                             substrate=args.substrate)
             name = f"f1_capture{tag}_{mode}_s{seed}.json"
@@ -41,18 +47,18 @@ def main():
                          "n_spikes_mean": r["mean_nspk"]})
             print(f"mode={mode:<8} seed={seed:<3} ticks={r['ticks']:<4} "
                   f"wall={r['_wall_step']:>5.1f}s fallen={r['walker']['fallen']} "
-                  f"nspk={r['mean_nspk']}")
-    with open(RES / ("f1_capture_index%s.json" % tag), "w",
+                  f"nspk={r['mean_nspk']}", flush=True)
+    with open(RES / index_name, "w",
               encoding="utf-8") as fp:
         json.dump({"duration_sec": al.DURATION_SEC, "tps": al.TPS,
-                   "profile": PROFILE, "seeds": SEEDS, "threshold": al.THR,
+                   "profile": PROFILE, "seeds": seeds, "threshold": al.THR,
                    "substrate": args.substrate,
                    "poisson_lam": al.POISSON_LAM,
                    "notes": "task-driven capture; counts[64]+state per tick "
                             "(steps: counts,x aligned by tick.iteration; state "
                             "hold-last from bridge TSV at 50 Hz)",
                    "runs": runs}, fp, indent=2)
-    print("saved index:", RES / ("f1_capture_index%s.json" % tag))
+    print("saved index:", RES / index_name)
 
 
 if __name__ == "__main__":

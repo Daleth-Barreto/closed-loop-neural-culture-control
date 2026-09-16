@@ -129,15 +129,18 @@ def lag_design(counts, lag_list):
     return np.hstack(cols)
 
 
-def _fit_ridge(Xtr, ytr, Xa, ya, lam):
+def _standard(Xtr):
     mu, sd = Xtr.mean(0), Xtr.std(0) + 1e-9
-    Xts = (Xtr - mu) / sd
-    Xas = (Xa - mu) / sd
-    xb = ytr.mean()
-    Kt = Xts @ Xts.T
-    alpha = np.linalg.solve(Kt + lam * np.eye(Kt.shape[0]), ytr - xb)
-    pred = Xas @ (Xts.T @ alpha) + xb
-    return float(np.sqrt(np.mean((pred - ya) ** 2))), pred
+    return (Xtr - mu) / sd, mu, sd
+
+
+def _ridge_pred(Xas, Kt, XtsT, xb, ytc, lam):
+    alpha = np.linalg.solve(Kt + lam * np.eye(Kt.shape[0]), ytc)
+    return Xas @ (XtsT @ alpha) + xb, alpha
+
+
+def _rmse(pred, ya):
+    return float(np.sqrt(np.mean((pred - ya) ** 2)))
 
 
 def ridge_instant(counts, target):
@@ -146,18 +149,25 @@ def ridge_instant(counts, target):
     y = target.astype(np.float64)
     idx = np.arange(X.shape[0])
     tr, va, te = idx[::3], idx[1::3], idx[2::3]
+    Xts, mu, sd = _standard(X[tr])
+    Kt = Xts @ Xts.T
+    Xqs = (X[va] - mu) / sd
+    Xes = (X[te] - mu) / sd
+    xb = y[tr].mean()
+    ytc = y[tr] - xb
     best = (np.inf, LAM_GRID[0])
     for lam in LAM_GRID:
-        r, _ = _fit_ridge(X[tr], y[tr], X[va], y[va], lam)
+        pred, _ = _ridge_pred(Xqs, Kt, Xts.T, xb, ytc, lam)
+        r = _rmse(pred, y[va])
         if r < best[0]:
             best = (r, lam)
-    rmse, _ = _fit_ridge(X[tr], y[tr], X[te], y[te], best[1])
-    _, pred = _fit_ridge(X[tr], y[tr], X[te], y[te], best[1])
+    pred, _ = _ridge_pred(Xes, Kt, Xts.T, xb, ytc, best[1])
     mi, mi_p = mi_bias_corrected(pred, y[te])
     rho = 0.0
     if np.std(pred) > 1e-9 and np.std(y[te]) > 1e-9:
         rho = float(np.corrcoef(pred, y[te])[0, 1])
-    return {"rmse": rmse, "mi": mi, "mi_p": mi_p, "rho": rho, "lam": best[1]}
+    return {"rmse": _rmse(pred, y[te]), "mi": mi, "mi_p": mi_p,
+            "rho": rho, "lam": best[1]}
 
 
 def ridge_walkforward(counts, target):
@@ -173,17 +183,25 @@ def ridge_walkforward(counts, target):
     rows = []
     for w0, w1 in windows:
         tr = np.arange(w0)
-        va = tr[-max(len(tr) // 5, 5):
-                ] if len(tr) >= 10 else tr
+        val = tr[-max(len(tr) // 5, 5):] if len(tr) >= 10 else tr
         te = np.arange(w0, w1)
+        Xts, mu, sd = _standard(X[tr])
+        Kt = Xts @ Xts.T
+        Xqs = (X[val] - mu) / sd
+        Xes = (X[te] - mu) / sd
+        xb = y[tr].mean()
+        ytc = y[tr] - xb
         best = (np.inf, LAM_GRID[0])
         for lam in LAM_GRID:
-            r, _ = _fit_ridge(X[tr], y[tr], X[va], y[va], lam)
+            pred, _ = _ridge_pred(Xqs, Kt, Xts.T, xb, ytc, lam)
+            r = _rmse(pred, y[val])
             if r < best[0]:
                 best = (r, lam)
-        rmse_w, pred = _fit_ridge(X[tr], y[tr], X[te], y[te], best[1])
+        pred, _ = _ridge_pred(Xes, Kt, Xts.T, xb, ytc, best[1])
+        rmse_w = _rmse(pred, y[te])
         local_mean = float(np.mean(y[te]))
-        rmse_mean_w = float(np.sqrt(np.mean((np.full(len(te), local_mean) - y[te]) ** 2)))
+        rmse_mean_w = float(np.sqrt(np.mean(
+            (np.full(len(te), local_mean) - y[te]) ** 2)))
         rows.append({"t": int(w0), "rmse": rmse_w, "meanpd": rmse_mean_w,
                      "carried": rmse_mean_w - rmse_w, "lam": best[1],
                      "pred": pred})

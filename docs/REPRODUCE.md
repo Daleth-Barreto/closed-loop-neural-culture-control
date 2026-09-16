@@ -55,8 +55,8 @@ POSIX users: `uv venv .venv --python 3.12` then
 | `python src/capture_signal.py` | `results/f1_capture_*.json` | Gate A raw captures (5 modes x {7,29}) |
 | `python src/signal_analysis.py` | `results/f2_signal_summary.json` + fig | Gate A MI/TE (rate) |
 | `python src/capture_signal.py --substrate izh && python src/signal_analysis.py --tag izh` | `results/f2_signal_izh.*` | Gate A MI/TE (Izhikevich) |
-| `python src/gate_d.py` | `results/gate_d.json`/`gate_d.png` | Gate D pilot (rate): readout-invariance |
-| `python src/gate_d.py --tag izh` | `results/gate_d_izh.json`/`gate_d_izh.png` | Gate D pilot (Izhikevich) |
+| `python src/gate_d.py` | `results/gate_d.json`/`gate_d.png` | Gate D (rate): readout-invariance (6 seeds) |
+| `python src/gate_d.py --tag izh` | `results/gate_d_izh.json`/`gate_d_izh.png` | Gate D (Izhikevich, 6 seeds) |
 | `python src/terrain_probe.py` | `results/terrain_probe.json`/`terrain_probe2.json` | terrain battery |
 | `python src/terrain_analysis.py` | `results/terrain_stats.json` + `terrain_summary.png` | Fisher/Welch stats + figure |
 | `python src/probe_frontier.py` | `results/push_frontier.json` | lateral impulse frontier |
@@ -79,12 +79,12 @@ overrides, including the reduced (fewer-seed) batteries.
 No figure in this repository is hand-typed; every render reads a committed JSON
 under `results/`.
 
-## Gate D pilot (readout-invariance, closed loop)
+## Gate D (readout-invariance, closed loop)
 
-Post-ICRA falsification (analysis-only, committed f1 captures; n = 2 seeds
-{7, 29}). Question: is the tracking advantage recoverable from the recorded
-spike counts by the BEST causal linear readout, or does it live only in the
-fixed `decide` readout? Decoders per (mode, seed):
+Post-ICRA falsification (analysis-only, committed f1 captures; **n = 6 seeds
+{1,7,13,29,55,91}** per mode). Question: is the tracking advantage recoverable
+from the recorded spike counts by the BEST causal linear readout, or does it
+live only in the fixed `decide` readout? Decoders per (mode, seed):
 
 - **canon** - the loop's own command (cmd_series) vs the analytic profile vref.
 - **meanpd** - window-local mean predictor (floor).
@@ -95,38 +95,49 @@ fixed `decide` readout? Decoders per (mode, seed):
   lambda chosen on the last fifth of each training block.
 
 Carried info = window-mean RMSE - walk-forward RMSE, pooled per mode.
-
-Pilot numbers (results/gate_d.json, gate_d_izh.json):
+Captures: seeds 1,13,55,91 captured fresh (30 runs per substrate); seeds 7,29
+reuse the committed captures. `results/gate_d_battery_index{,_izh}.json` is the
+merged manifest.
 
 | mode     | rate carried_vref | rate carried_cmd | izh carried_vref | izh carried_cmd |
 |----------|-------------------|------------------|------------------|-----------------|
-| neural   | -0.090            | -0.039           | -0.052           | -0.049          |
-| zero     | -0.050            | 0.000            | -0.068           | 0.000           |
-| random   | -0.076            | -0.072           | -0.059           | -0.091          |
-| mask0.5  | -0.218            | -0.043           | -0.229           | -0.055          |
-| poisson  | -0.105            | -0.015           | -0.105           | -0.016          |
+| neural   | -0.073 +/- 0.025  | -0.038 +/- 0.013 | -0.072 +/- 0.016 | -0.043 +/- 0.007 |
+| zero     | -0.062 +/- 0.013  |  0.000 +/- 0.000 | -0.070 +/- 0.016 |  0.000 +/- 0.000 |
+| random   | -0.078 +/- 0.027  | -0.078 +/- 0.018 | -0.069 +/- 0.013 | -0.102 +/- 0.018 |
+| mask0.5  | -0.171 +/- 0.079  | -0.072 +/- 0.065 | -0.189 +/- 0.064 | -0.088 +/- 0.074 |
+| poisson  | -0.114 +/- 0.011  | -0.014 +/- 0.007 | -0.114 +/- 0.011 | -0.014 +/- 0.005 |
 
-Reading:
+Reading (paired over the 6 seeds; one-sided p for "mode better than null"):
 
-1. The dead-substrate null is validated and stable: poisson sits at or below
-   the trivial floor for both targets and both substrates.
-2. The task (vref) is NOT recoverable from any substrate by a causal linear
-   readout above even the within-window mean; the live loops and the null are
-   comparable (all carried_vref <= 0). Neural's margin over the null is small
-   (+0.015 rate, +0.052 izh) at n = 2.
-3. The spike -> command causal edge (Gate A's TE) does NOT survive as
-   linearly-decodable structure: carried_cmd is ~0 or negative for every mode
-   including neural.
-4. The fixed `decide` readout is far from optimal (its RMSE 0.240-0.264 vs the
-   walk-forward vref decode 0.119-0.156; the mean predictor alone gives
-   0.067): the behavioral separation in the canonical battery is a whole-loop
-   (plant + inertia + nonlinear readout) property, not a readout-invariant
-   property of the spike stream.
+1. The dead-substrate null is validated and reproducible: poisson carries vref
+   -0.114 (identical in both substrates) and command -0.014; the matched-dead
+   substrate is a trivial-mean decoder.
+2. The neural substrate does carry TASK information significantly above the
+   dead null: carried_vref margin +0.041 (rate, t(5)=3.00, p ~ 0.015) and
+   +0.042 (izh, t(5)=8.27, p < 0.001). But in ABSOLUTE terms all modes sit at
+   or below the within-window mean (carried_vref <= 0); the linear readout
+   never beats a dummy predictor in any mode.
+3. The neural advantage over the uncoupled/disabled loops is NOT linearly
+   recoverable: neural vs zero (d ~ -0.01, n.s.) and vs random (d ~ 0, n.s.)
+   on carried_vref. The canonical battery's tracking separation is therefore a
+   whole-loop (plant + inertia + nonlinear readout) effect, NOT a
+   readout-invariant property of the spike stream. Readout-invariance at the
+   linear level is FALSIFIED.
+4. The spike -> command causal edge (Gate A's TE) does not survive as
+   linearly-decodable structure: neural carried_cmd is below the null
+   (d = -0.024/-0.030, both p -> 1 for "above null"). The command is not in
+   the spikes in any linear way; the ch62 -> cmd coupling runs through the
+   fixed nonlinear `decide` path.
+5. The fixed `decide` readout is far from optimal (canon RMSE 0.234-0.261 vs
+   the walk-forward vref decode ~0.14-0.18 and the window-mean floor 0.067):
+   readout improvable.
 
-Status: PILOT (n = 2). A full-statistics Gate D needs the 6-seed capture
-battery (5 modes x 6 seeds x 2 substrates, ~1 h); the protocol and verdict
-hooks are already in results/gate_d*.json. Any claim extending the ICRA
-paper must keep this falsification in the intro/limitations.
+Status: FULL STATISTICS (n = 6). Any claim extending the ICRA paper must keep
+this falsification in the intro/limitations: surviving claims are (a) a
+validated matched dead-substrate null, (b) substrate-relative-but-not-
+absolute task information, (c) a real, significant, signed whole-loop
+behavioral effect; the claim that the substrate is a readout-invariant
+computation is not supported.
 
 ## Canonical numbers
 
