@@ -41,10 +41,15 @@ information (exact paired permutation $p \leq 0.0156$ on every profile and
 every null). The ordering replicates across substrate change and is
 corroborated by mutual information and transfer entropy along the causal chain
 electrode$\rightarrow$spikes$\rightarrow$command, and by signed,
-terrain-dependent changes in real walking outcomes. We also report the loop's
-physical authority boundary and its information latency honestly. All software,
-assets, raw trials, and analysis code are released as a single public
-repository.
+terrain-dependent changes in real walking outcomes. A causal walk-forward
+readout of the recorded spike streams finds task information in the intact
+substrate significant against the statistically matched dead substrate
+(one-sided paired $p=0.015$ for the rate-code substrate, $p<0.001$ for the
+Izhikevich substrate) while no substrate supports a linear readout above a
+trivial predictor---the behavioral separation is a whole-loop property whose
+boundaries we measure rather than assume. We also report the loop's physical
+authority boundary and its information latency honestly. All software, assets,
+raw trials, and analysis code are released as a single public repository.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -103,11 +108,14 @@ could build without leaving simulation:
 The contribution is therefore not an effect size but a falsifiable protocol:
 the loop is load-bearing if and only if ablation can destroy its function in
 the ways listed, and it fails honestly at the boundaries we report. We are
-also explicit about what is \emph{not} yet shown: the decoder-invariance of the
-spike-carried information, which a companion open-loop protocol
-\cite{embodied_neurocomp} demonstrates is where apparent tracking can collapse
-for dynamical microcircuits. That readout-invariance analysis in the closed
-loop is the clearly stated next step, not a completed claim.
+also explicit about what is \emph{not} shown even after the full battery: the
+closed-loop readout-invariance gate (Section~\ref{sec:resG}) measures that the
+best causal linear readout of the recorded spikes never beats a trivial
+window-mean predictor for any mode, and that the spike$\rightarrow$command edge
+does not survive as linear structure---yet the intact substrate carries task
+information above a statistically matched dead substrate at paired significance
+in both substrates. The load-bearing claim therefore survives; the stronger,
+readout-invariant reading is rejected by measurement, not assumed.
 
 \section{Related Work}
 
@@ -408,6 +416,98 @@ therefore not tied to the particular pattern generator that reads the electrode
 contract. Gate~A replicates on the second substrate as well
 (Table~\ref{tab:gate}, right).
 
+\subsection{Readout invariance in the closed loop (Gate~D)}
+\label{sec:resG}
+
+We close the decoder-invariance question empirically instead of deferring it.
+For every (mode, seed) capture we trained the best \emph{causal} linear readout
+of the spike streams---strictly past lags $1..48$ ticks, matching the hub's
+$1.2\,$s window---selecting the ridge penalty on the last fifth of each
+chronological training block and evaluating on the following $100$-tick window
+(four windows per run cover both profile transitions). ``Carried'' information
+is the per-window RMSE of a window-local mean predictor minus the readout RMSE,
+pooled across the six seeds. Table~\ref{tab:gated} reports the joint battery;
+Fig.~\ref{fig:gated} shows the distributions over seeds.
+
+Three readings matter. First, the dead-substrate null is validated and
+reproducible: \texttt{poisson} carries task $-0.114$ and command $-0.014$ in
+\emph{both} substrates with a tight spread ($\pm 0.011$/$0.005$~sd, in RMSE
+units)---a statistically matched but state-free spike stream behaves exactly
+like a trivial-mean decoder.
+
+Second, the task \emph{is} in the intact substrate relative to that null: the
+neural carried-vref margin over \texttt{poisson} is $+0.041$ (rate-code,
+$t(5)\,{=}\,3.00$, one-sided $p\,{=}\,0.015$) and $+0.042$ (Izhikevich,
+$t(5)\,{=}\,8.27$, $p\,{<}\,0.001$), while neural versus the uncoupled modes is
+not significant. In absolute terms, however, every mode sits at or below the
+window mean ($\mathrm{carried}\le 0$): even the best linear readout never
+beats a dummy predictor, so the task signal is \emph{relative}---the substrate
+carries state beyond a dead substrate---but not absolutely decodable.
+
+Third, the spike$\rightarrow$command edge does not exist as linear structure.
+Neural carried command is \emph{below} the null on both substrates ($-0.024$
+and $-0.030$, with $p\rightarrow 1$ against the ``better than null'' direction)
+and zero is exactly $0.000\pm0.000$ (constant command). The Gate~A TE along
+$c_{62}\rightarrow\mathrm{cmd}$ therefore flows through the fixed nonlinear
+\emph{decide}, not through an extractable linear function of the spikes.
+
+The gate also makes the fixity of the loop's own readout a measured cost, not a
+caveat: the \texttt{canon} decode runs at $0.234$/$0.261$ RMSE (rate/izh) where
+the walk-forward vref decode reaches $\sim$\,$0.14$--$0.18$ and the window mean
+alone gives $0.067$. Net status in one sentence: the intact substrate carries
+state information that is significant against the dead null and destroyed by
+the ablations of Section~\ref{sec:resA}; every decodable continuation of that
+information into a command fails at linear power, so the behavioral separation
+is a property of the whole fixed loop (substrate $\times$ nonlinear readout
+$\times$ plant), not of the spike stream alone.
+
+\begin{table}[t]
+\centering
+\caption{Gate~D. Carried task/command information (window-mean RMSE minus best
+causal linear readout RMSE; mean$\pm$sd over six paired seeds; RMSE units,
+$\mathrm{m/s}$).}
+\label{tab:gated}
+\small
+\begin{tabular}{lcc|cc}
+\toprule
+ & \multicolumn{2}{c|}{\textbf{rate-code}} &
+   \multicolumn{2}{c}{\textbf{Izhikevich}}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Mode & carried vref & carried cmd & carried vref & carried cmd\\
+\midrule
+\texttt{neural}  & $-0.073\pm0.025$ & $-0.038\pm0.013$ &
+                   $-0.072\pm0.016$ & $-0.043\pm0.007$\\
+\texttt{zero}    & $-0.062\pm0.013$ & $0.000\pm0.000$ &
+                   $-0.070\pm0.016$ & $0.000\pm0.000$\\
+\texttt{random}  & $-0.078\pm0.027$ & $-0.078\pm0.018$ &
+                   $-0.069\pm0.013$ & $-0.102\pm0.018$\\
+\texttt{mask0.5} & $-0.171\pm0.079$ & $-0.072\pm0.065$ &
+                   $-0.189\pm0.064$ & $-0.088\pm0.074$\\
+\texttt{poisson} & $-0.114\pm0.011$ & $-0.014\pm0.007$ &
+                   $-0.114\pm0.011$ & $-0.014\pm0.005$\\
+\bottomrule
+\end{tabular}
+\vspace{2pt}
+\begin{flushleft}
+\footnotesize
+Paired over seeds: neural $>$ poisson on vref by $+0.041$ (rate, $t(5)=3.00$,
+$p=0.015$) and $+0.042$ (izh, $t(5)=8.27$, $p<0.001$); neural vs.\ zero/random
+n.s.\ on vref; neural carried command $\leq$ null on both substrates.
+\end{flushleft}
+\end{table}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig6_gated.png}
+\caption{Readout-invariance gate (Gate~D). Left: canonical readout RMSE vs.\
+the best causal linear readout and the window-mean floor. Center: carried task
+information by mode, with the dead-substrate (poisson) level dashed. Right:
+carried spike$\rightarrow$command information. The intact substrate sits
+significantly above the dead null on the task and nowhere above it on the
+command edge.}
+\label{fig:gated}
+\end{figure*}
+
 \subsection{Terrain: the loop is not inert}
 \label{sec:resD}
 
@@ -519,15 +619,20 @@ branch takes one link out of the loop
 
 Two honesty constraints should be stated sharply.
 
-First, the readout is fixed and hand-specified. The companion open-loop protocol
-\cite{embodied_neurocomp} shows that apparent tracking of dynamical substrates
-can be a readout-channel artifact: re-learning a linear readout from spike
-counts changed which substrate ``carried'' the task, and for its Izhikevich
-mini-culture the carried information under the re-learned readout was negative
-(noise). We therefore treat decoder readout-invariance in the closed loop as
-the explicit next step (our Gate~D), and we do \emph{not} claim the substrate is
-the only carrier; we claim the loop is load-bearing in the sense that its
-function is destroyed by the ablations above. The distinction is the paper's.
+First, the readout is fixed, hand-specified, and nonlinear, and the status of
+the information it consumes is measured, not assumed. The closed-loop
+readout-invariance gate (Section~\ref{sec:resG}) finds that the best causal
+linear readout \emph{cannot} beat a trivial window-mean predictor for any mode,
+so the substrate is not readout-invariant; but the intact substrate \emph{does}
+carry task information significantly above the statistically matched dead
+substrate in both substrates. Load-bearing versus readout-invariant is thus a
+measured distinction: ablation destroys the loop's function---that is the
+load-bearing claim---while the decodability of the spikes into a command is
+explicitly not demonstrated, with the same gate's numbers reported. The
+companion open-loop protocol \cite{embodied_neurocomp} that motivated the gate
+showed the same distinction open-loop, where apparent tracking of dynamical
+microcircuits could collapse under a re-learned readout; here it is a measured
+boundary of the closed loop instead of a deferred caveat.
 
 Second, real-time jitter. Because the loop closes in wall clock time, the same
 seed can land differently across sessions (hub chunking latency); statistics
@@ -551,7 +656,8 @@ the ``culture substrate'' is simulated in-process, so the entire pipeline runs
 from a vendored environment on a CPU-only machine. The repository documents the
 exact commands to reproduce the five-by-five battery, the information-theoretic
 analyses, the terrain batteries, and the authority envelope, and which committed
-JSON files each figure is drawn from.
+JSON files each figure is drawn from. The readout-invariance gate reruns at
+full six-seed power from the committed captures via \texttt{src/gate\_d.py}.
 
 \section*{Acknowledgment}
 
