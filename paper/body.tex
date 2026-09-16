@@ -73,7 +73,8 @@ load-bearing arrangement is rarely shown. Second, the loop itself is usually
 not scrutinized: when a ``brain'' reports a command and a game or robot
 appears to move, the information that actually drove the movement may live in
 the readout and in the environment, not in the spikes
-\cite{embodied_neurocomp}. A task function that demonstrably requires the
+\cite{maass2002liquid,balci2023neurons}. A task function that demonstrably
+requires the
 substrate, and whose destruction under ablation is measurable, is the missing
 demonstration in either direction.
 
@@ -136,16 +137,18 @@ the known single-neuron repertoire \cite{izhikevich2003,izhikevich2004}. Liquid
 state machines showed that a fixed, untrained recurrent reservoir supports
 real-time computation when a trained readout exists \cite{maass2002liquid},
 which is precisely the configuration we use and the reason decoder-invariance
-\cite{embodied_neurocomp} is a first-order threat to such claims. The Neural
+is a first-order threat to such claims; our gate
+(Section~\ref{sec:resG}) measures it in the closed loop. The Neural
 Engineering Framework and its Nengo implementation provide the principled
 Kernel of our readout: represent a function of the spike population via a
 linearly optimal decoder \cite{eliasmith2003,bekolay2014}.
 
-\emph{Closed-loop validation.} Our falsification battery follows the protocol
-of our companion work \cite{embodied_neurocomp}, which introduced a
-falsification-style gate structure for embodied spiking substrates and
-demonstrated open-loop that apparent tracking can survive only under a held-out
-readout. The physiological literature on population decoding
+\emph{Closed-loop validation.} Our falsification battery instantiates that
+scrutiny as a gate structure over the loop's links
+(Fig.~\ref{fig:pipeline}): each ablation removes exactly one hypothesized
+mechanism, and each information-theoretic or readout-invariance test re-derives
+the conclusion from the recordings instead of from the loop's appearance. The
+physiological literature on population decoding
 \cite{georgopoulos1986,quiroga2009,paninski2004} and on information measures in
 spike trains \cite{schreiber2000,kraskov2004,panzeri2007,walker2018} provides
 the analytical tools; exact permutation inference \cite{ernst2004},
@@ -629,10 +632,9 @@ substrate in both substrates. Load-bearing versus readout-invariant is thus a
 measured distinction: ablation destroys the loop's function---that is the
 load-bearing claim---while the decodability of the spikes into a command is
 explicitly not demonstrated, with the same gate's numbers reported. The
-companion open-loop protocol \cite{embodied_neurocomp} that motivated the gate
-showed the same distinction open-loop, where apparent tracking of dynamical
-microcircuits could collapse under a re-learned readout; here it is a measured
-boundary of the closed loop instead of a deferred caveat.
+readout-dependence of a fixed reservoir is itself classical
+\cite{maass2002liquid}; here it is a measured boundary of the closed loop
+instead of a deferred caveat.
 
 Second, real-time jitter. Because the loop closes in wall clock time, the same
 seed can land differently across sessions (hub chunking latency); statistics
@@ -665,18 +667,11 @@ full six-seed power from the committed captures via \texttt{src/gate\_d.py}.
 \ifDoubleBlind
 \textit{(omitted in the double-anonymous version.)}
 \else
-The author acknowledges the open-loop falsification protocol
-\cite{embodied_neurocomp}, developed in parallel by the author's own research
-lane, which shaped the decoder-invariance agenda that the discussion
-explicitly leaves to future work.
+The author thanks the open-source robotics and neuromorphic communities whose
+tooling and benchmarks made this study possible.
 \fi
 
 \begin{thebibliography}{20}
-
-\bibitem{embodied_neurocomp}
-``Embodied Neurocomputation: A Framework for Interfacing Biological Neural
-Cultures with Scaled Task-Driven Validation,'' preprint, arXiv:2605.13315,
-2026.
 
 \bibitem{kagan2022dishbrain}
 B.~J.~Kagan \emph{et al.}, ``In vitro neurons learn and exhibit sentience when
