@@ -55,6 +55,8 @@ POSIX users: `uv venv .venv --python 3.12` then
 | `python src/capture_signal.py` | `results/f1_capture_*.json` | Gate A raw captures (5 modes x {7,29}) |
 | `python src/signal_analysis.py` | `results/f2_signal_summary.json` + fig | Gate A MI/TE (rate) |
 | `python src/capture_signal.py --substrate izh && python src/signal_analysis.py --tag izh` | `results/f2_signal_izh.*` | Gate A MI/TE (Izhikevich) |
+| `python src/gate_d.py` | `results/gate_d.json`/`gate_d.png` | Gate D pilot (rate): readout-invariance |
+| `python src/gate_d.py --tag izh` | `results/gate_d_izh.json`/`gate_d_izh.png` | Gate D pilot (Izhikevich) |
 | `python src/terrain_probe.py` | `results/terrain_probe.json`/`terrain_probe2.json` | terrain battery |
 | `python src/terrain_analysis.py` | `results/terrain_stats.json` + `terrain_summary.png` | Fisher/Welch stats + figure |
 | `python src/probe_frontier.py` | `results/push_frontier.json` | lateral impulse frontier |
@@ -76,6 +78,55 @@ overrides, including the reduced (fewer-seed) batteries.
 
 No figure in this repository is hand-typed; every render reads a committed JSON
 under `results/`.
+
+## Gate D pilot (readout-invariance, closed loop)
+
+Post-ICRA falsification (analysis-only, committed f1 captures; n = 2 seeds
+{7, 29}). Question: is the tracking advantage recoverable from the recorded
+spike counts by the BEST causal linear readout, or does it live only in the
+fixed `decide` readout? Decoders per (mode, seed):
+
+- **canon** - the loop's own command (cmd_series) vs the analytic profile vref.
+- **meanpd** - window-local mean predictor (floor).
+- **ridgeX0** - instantaneous linear readout (reference).
+- **ridgeWF** - walk-forward causal readout, strictly past lags 1..48 ticks
+  (= the hub's 1.2 s window), trained chronologically, tested on each 100-tick
+  window covering both profile transitions. L2 via the Woodbury identity;
+  lambda chosen on the last fifth of each training block.
+
+Carried info = window-mean RMSE - walk-forward RMSE, pooled per mode.
+
+Pilot numbers (results/gate_d.json, gate_d_izh.json):
+
+| mode     | rate carried_vref | rate carried_cmd | izh carried_vref | izh carried_cmd |
+|----------|-------------------|------------------|------------------|-----------------|
+| neural   | -0.090            | -0.039           | -0.052           | -0.049          |
+| zero     | -0.050            | 0.000            | -0.068           | 0.000           |
+| random   | -0.076            | -0.072           | -0.059           | -0.091          |
+| mask0.5  | -0.218            | -0.043           | -0.229           | -0.055          |
+| poisson  | -0.105            | -0.015           | -0.105           | -0.016          |
+
+Reading:
+
+1. The dead-substrate null is validated and stable: poisson sits at or below
+   the trivial floor for both targets and both substrates.
+2. The task (vref) is NOT recoverable from any substrate by a causal linear
+   readout above even the within-window mean; the live loops and the null are
+   comparable (all carried_vref <= 0). Neural's margin over the null is small
+   (+0.015 rate, +0.052 izh) at n = 2.
+3. The spike -> command causal edge (Gate A's TE) does NOT survive as
+   linearly-decodable structure: carried_cmd is ~0 or negative for every mode
+   including neural.
+4. The fixed `decide` readout is far from optimal (its RMSE 0.240-0.264 vs the
+   walk-forward vref decode 0.119-0.156; the mean predictor alone gives
+   0.067): the behavioral separation in the canonical battery is a whole-loop
+   (plant + inertia + nonlinear readout) property, not a readout-invariant
+   property of the spike stream.
+
+Status: PILOT (n = 2). A full-statistics Gate D needs the 6-seed capture
+battery (5 modes x 6 seeds x 2 substrates, ~1 h); the protocol and verdict
+hooks are already in results/gate_d*.json. Any claim extending the ICRA
+paper must keep this falsification in the intro/limitations.
 
 ## Canonical numbers
 

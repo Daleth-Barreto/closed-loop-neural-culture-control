@@ -59,6 +59,16 @@ definitions, and which committed JSON each figure is drawn from.
 Compile with `pdflatex` (two passes). Figures are produced from the committed
 JSONs by `paper/figures/build_figures.py`.
 
+## Follow-up falsification (Gate D pilot)
+
+`python src/gate_d.py` (and `--tag izh`) runs the post-ICRA readout-invariance
+check on the committed captures: whether the tracking advantage survives the
+best causal linear readout of the spike stream. The one-page summary and the
+raw numbers are in `results/gate_d*.json`; see `docs/REPRODUCE.md` for the
+protocol and the pilot verdict. The dead-substrate null stays at the trivial
+floor, but the task is not linearly recoverable from any substrate - a
+whole-loop, not a readout-invariant, effect.
+
 ## License and third-party notices
 
 - This repository's own code is MIT; see `LICENSE`.

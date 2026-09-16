@@ -1,0 +1,1284 @@
+{
+ "gate": "closed-loop readout-invariance (Gate D, ported from open-loop mini)",
+ "tag": "izh",
+ "modes": [
+  "neural",
+  "zero",
+  "random",
+  "mask0.5",
+  "poisson"
+ ],
+ "lag_ticks": 48,
+ "walkforward_window_ticks": 100,
+ "targets": [
+  "vref (task profile)",
+  "cmd (loop-issued command)"
+ ],
+ "decoders": [
+  "canon (loop's own cmd_series)",
+  "meanpd (floor)",
+  "ridgeX0 (instantaneous, reference)",
+  "ridgeWF (causal walk-forward)"
+ ],
+ "caveat": "closed loop: non-poisson spikes encode plant state through the encoder; Gate D falsifies the decode direction.",
+ "per_run": {
+  "neural": {
+   "7": {
+    "canon_vref": {
+     "rmse": 0.25541862500608686,
+     "rho": 0.23187119405959955
+    },
+    "meanpd_vref_global": {
+     "rmse": 0.13994284547628724,
+     "rho": 0.0
+    },
+    "meanpd_cmd_global": {
+     "rmse": 0.14518467206974708,
+     "rho": 0.0
+    },
+    "ridgeX0_vref": {
+     "rmse": 0.14010155448053896,
+     "mi": 0.01568591669284801,
+     "mi_p": 0.15,
+     "rho": 0.23334415354362725,
+     "lam": 10.0
+    },
+    "ridgeWF_vref": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.18973665961010278,
+       "meanpd": 0.14696938456699069,
+       "carried": -0.04276727504311209,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.06788186221178008,
+       "meanpd": 2.220446049250313e-16,
+       "carried": -0.06788186221177986,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.1070828275467601,
+       "meanpd": 0.12000000000000006,
+       "carried": 0.012917172453239964,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.07100380000721929,
+       "meanpd": 0.0,
+       "carried": -0.07100380000721929,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.10892628734396556,
+     "meanpd": 0.06674234614174775,
+     "carried": -0.042183941202217815,
+     "mi": 0.3695554747873578,
+     "mi_p": 0.0,
+     "rho": 0.6359766090346233
+    },
+    "ridgeWF_cmd": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.13064572027426957,
+       "meanpd": 0.11368393510078721,
+       "carried": -0.01696178517348236,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.23879949409932047,
+       "meanpd": 0.19299590954214546,
+       "carried": -0.04580358455717501,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.18644573207341195,
+       "meanpd": 0.11667445093078432,
+       "carried": -0.06977128114262762,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.1911410068118519,
+       "meanpd": 0.11065454848310574,
+       "carried": -0.08048645832874615,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.18675798831471346,
+     "meanpd": 0.13350221101420567,
+     "carried": -0.05325577730050778,
+     "mi": 0.02868106823597924,
+     "mi_p": 0.07,
+     "rho": 0.16298401016366929
+    },
+    "carried_vref": -0.042183941202217815,
+    "carried_cmd": -0.05325577730050778,
+    "canon_minus_ridge": 0.1464923376621213
+   },
+   "29": {
+    "canon_vref": {
+     "rmse": 0.2724999706422003,
+     "rho": 0.15574691525015288
+    },
+    "meanpd_vref_global": {
+     "rmse": 0.13994284547628724,
+     "rho": 0.0
+    },
+    "meanpd_cmd_global": {
+     "rmse": 0.14792114757532135,
+     "rho": 0.0
+    },
+    "ridgeX0_vref": {
+     "rmse": 0.14686368828333024,
+     "mi": 0.0,
+     "mi_p": 0.68,
+     "rho": 0.07657321584240738,
+     "lam": 10.0
+    },
+    "ridgeWF_vref": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.18973665961010278,
+       "meanpd": 0.14696938456699069,
+       "carried": -0.04276727504311209,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.1052647612570941,
+       "meanpd": 2.220446049250313e-16,
+       "carried": -0.10526476125709387,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.15214280054799464,
+       "meanpd": 0.12000000000000006,
+       "carried": -0.03214280054799458,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.07087331426994668,
+       "meanpd": 0.0,
+       "carried": -0.07087331426994668,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.12950438392128455,
+     "meanpd": 0.06674234614174775,
+     "carried": -0.0627620377795368,
+     "mi": 0.2088621555052588,
+     "mi_p": 0.0,
+     "rho": 0.5147952023623337
+    },
+    "ridgeWF_cmd": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.17038674546138483,
+       "meanpd": 0.13380949742077353,
+       "carried": -0.0365772480406113,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.18734010206217003,
+       "meanpd": 0.16491308134893362,
+       "carried": -0.022427020713236406,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.1985666843787931,
+       "meanpd": 0.14331586932367263,
+       "carried": -0.05525081505512047,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.22101724208504947,
+       "meanpd": 0.15250438518285303,
+       "carried": -0.06851285690219644,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.19432769349684936,
+     "meanpd": 0.1486357083190582,
+     "carried": -0.045691985177791154,
+     "mi": 0.0,
+     "mi_p": 0.71,
+     "rho": 0.04491028274405504
+    },
+    "carried_vref": -0.0627620377795368,
+    "carried_cmd": -0.045691985177791154,
+    "canon_minus_ridge": 0.14299558672091572
+   }
+  },
+  "zero": {
+   "7": {
+    "canon_vref": {
+     "rmse": 0.6122091146005587,
+     "rho": 0.0
+    },
+    "meanpd_vref_global": {
+     "rmse": 0.13994284547628724,
+     "rho": 0.0
+    },
+    "meanpd_cmd_global": {
+     "rmse": 0.0,
+     "rho": 0.0
+    },
+    "ridgeX0_vref": {
+     "rmse": 0.1398128488038199,
+     "mi": 0.03145388418656218,
+     "mi_p": 0.03,
+     "rho": 0.25323295663106454,
+     "lam": 10.0
+    },
+    "ridgeWF_vref": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.18973665961010278,
+       "meanpd": 0.14696938456699069,
+       "carried": -0.04276727504311209,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.10231104344519346,
+       "meanpd": 2.220446049250313e-16,
+       "carried": -0.10231104344519323,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.09204288269097324,
+       "meanpd": 0.12000000000000006,
+       "carried": 0.02795711730902682,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.06724006036238085,
+       "meanpd": 0.0,
+       "carried": -0.06724006036238085,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.11283266152716259,
+     "meanpd": 0.06674234614174775,
+     "carried": -0.04609031538541484,
+     "mi": 0.314359179738494,
+     "mi_p": 0.0,
+     "rho": 0.6268144213837201
+    },
+    "ridgeWF_cmd": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.0,
+       "meanpd": 0.0,
+       "carried": 0.0,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.0,
+       "meanpd": 0.0,
+       "carried": 0.0,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.0,
+       "meanpd": 0.0,
+       "carried": 0.0,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.0,
+       "meanpd": 0.0,
+       "carried": 0.0,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.0,
+     "meanpd": 0.0,
+     "carried": 0.0,
+     "mi": 0.0,
+     "mi_p": 1.0,
+     "rho": 0.0
+    },
+    "carried_vref": -0.04609031538541484,
+    "carried_cmd": 0.0,
+    "canon_minus_ridge": 0.4993764530733961
+   },
+   "29": {
+    "canon_vref": {
+     "rmse": 0.6122091146005587,
+     "rho": 0.0
+    },
+    "meanpd_vref_global": {
+     "rmse": 0.13994284547628724,
+     "rho": 0.0
+    },
+    "meanpd_cmd_global": {
+     "rmse": 0.0,
+     "rho": 0.0
+    },
+    "ridgeX0_vref": {
+     "rmse": 0.15789249665106514,
+     "mi": 0.0,
+     "mi_p": 0.77,
+     "rho": 0.0007693719970369692,
+     "lam": 10.0
+    },
+    "ridgeWF_vref": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.18973665961010278,
+       "meanpd": 0.14696938456699069,
+       "carried": -0.04276727504311209,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.17341762841237518,
+       "meanpd": 2.220446049250313e-16,
+       "carried": -0.17341762841237496,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.12740139085474553,
+       "meanpd": 0.12000000000000006,
+       "carried": -0.007401390854745463,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.137918760713976,
+       "meanpd": 0.0,
+       "carried": -0.137918760713976,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.15711860989779988,
+     "meanpd": 0.06674234614174775,
+     "carried": -0.09037626375605212,
+     "mi": 0.24344344845084356,
+     "mi_p": 0.0,
+     "rho": 0.5202133027777496
+    },
+    "ridgeWF_cmd": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.0,
+       "meanpd": 0.0,
+       "carried": 0.0,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.0,
+       "meanpd": 0.0,
+       "carried": 0.0,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.0,
+       "meanpd": 0.0,
+       "carried": 0.0,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.0,
+       "meanpd": 0.0,
+       "carried": 0.0,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.0,
+     "meanpd": 0.0,
+     "carried": 0.0,
+     "mi": 0.0,
+     "mi_p": 1.0,
+     "rho": 0.0
+    },
+    "carried_vref": -0.09037626375605212,
+    "carried_cmd": 0.0,
+    "canon_minus_ridge": 0.4550905047027588
+   }
+  },
+  "random": {
+   "7": {
+    "canon_vref": {
+     "rmse": 0.33832968241051514,
+     "rho": 0.03826376509816311
+    },
+    "meanpd_vref_global": {
+     "rmse": 0.13994284547628724,
+     "rho": 0.0
+    },
+    "meanpd_cmd_global": {
+     "rmse": 0.21877588147691235,
+     "rho": 0.0
+    },
+    "ridgeX0_vref": {
+     "rmse": 0.1573932044494162,
+     "mi": 0.029948633684328985,
+     "mi_p": 0.04,
+     "rho": -0.0607217614997199,
+     "lam": 10.0
+    },
+    "ridgeWF_vref": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.18973665961010278,
+       "meanpd": 0.14696938456699069,
+       "carried": -0.04276727504311209,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.13452463139599577,
+       "meanpd": 2.220446049250313e-16,
+       "carried": -0.13452463139599555,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.09440570509247512,
+       "meanpd": 0.12000000000000006,
+       "carried": 0.025594294907524948,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.04342012826876074,
+       "meanpd": 0.0,
+       "carried": -0.04342012826876074,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.11552178109183361,
+     "meanpd": 0.06674234614174775,
+     "carried": -0.048779434950085854,
+     "mi": 0.3133894656758819,
+     "mi_p": 0.0,
+     "rho": 0.6007508304544062
+    },
+    "ridgeWF_cmd": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.2542110570901312,
+       "meanpd": 0.22127916756893318,
+       "carried": -0.03293188952119802,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.27693196248713264,
+       "meanpd": 0.2024739677094317,
+       "carried": -0.07445799477770093,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.29474116983822296,
+       "meanpd": 0.21468059320767677,
+       "carried": -0.08006057663054619,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.3450154693377918,
+       "meanpd": 0.2296227974309171,
+       "carried": -0.11539267190687472,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.2927249146883196,
+     "meanpd": 0.21701413147923967,
+     "carried": -0.07571078320907997,
+     "mi": 0.01376258528024396,
+     "mi_p": 0.26,
+     "rho": 0.02944649998387005
+    },
+    "carried_vref": -0.048779434950085854,
+    "carried_cmd": -0.07571078320907997,
+    "canon_minus_ridge": 0.22280790131868153
+   },
+   "29": {
+    "canon_vref": {
+     "rmse": 0.3345598959827672,
+     "rho": 0.017191112276665692
+    },
+    "meanpd_vref_global": {
+     "rmse": 0.13994284547628724,
+     "rho": 0.0
+    },
+    "meanpd_cmd_global": {
+     "rmse": 0.20734124332606865,
+     "rho": 0.0
+    },
+    "ridgeX0_vref": {
+     "rmse": 0.148413711050647,
+     "mi": 0.0,
+     "mi_p": 0.52,
+     "rho": 0.1416699381570356,
+     "lam": 10.0
+    },
+    "ridgeWF_vref": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.18973665961010278,
+       "meanpd": 0.14696938456699069,
+       "carried": -0.04276727504311209,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.1434218702657428,
+       "meanpd": 2.220446049250313e-16,
+       "carried": -0.14342187026574257,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.13759176527416203,
+       "meanpd": 0.12000000000000006,
+       "carried": -0.017591765274161966,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.07482039405587022,
+       "meanpd": 0.0,
+       "carried": -0.07482039405587022,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.13639267230146948,
+     "meanpd": 0.06674234614174775,
+     "carried": -0.0696503261597217,
+     "mi": 0.19327117549976502,
+     "mi_p": 0.0,
+     "rho": 0.49646157472115243
+    },
+    "ridgeWF_cmd": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.28392164209146387,
+       "meanpd": 0.19796530478849067,
+       "carried": -0.0859563373029732,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.30837606695674324,
+       "meanpd": 0.2116062144645095,
+       "carried": -0.09676985249223374,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.30440502332330854,
+       "meanpd": 0.20753777969324044,
+       "carried": -0.0968672436300681,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.3597287330325617,
+       "meanpd": 0.21389191920219894,
+       "carried": -0.14583681383036276,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.31410786635101934,
+     "meanpd": 0.20775030453710988,
+     "carried": -0.10635756181390946,
+     "mi": 0.0,
+     "mi_p": 0.89,
+     "rho": 0.07558142331181766
+    },
+    "carried_vref": -0.0696503261597217,
+    "carried_cmd": -0.10635756181390946,
+    "canon_minus_ridge": 0.19816722368129772
+   }
+  },
+  "mask0.5": {
+   "7": {
+    "canon_vref": {
+     "rmse": 0.39846092405655037,
+     "rho": 0.026070000938400742
+    },
+    "meanpd_vref_global": {
+     "rmse": 0.13994284547628724,
+     "rho": 0.0
+    },
+    "meanpd_cmd_global": {
+     "rmse": 0.05228502898536062,
+     "rho": 0.0
+    },
+    "ridgeX0_vref": {
+     "rmse": 0.14120690231494604,
+     "mi": 0.0,
+     "mi_p": 0.56,
+     "rho": 0.06407143096487129,
+     "lam": 10.0
+    },
+    "ridgeWF_vref": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.18973665961010278,
+       "meanpd": 0.14696938456699069,
+       "carried": -0.04276727504311209,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.22078642448778005,
+       "meanpd": 2.220446049250313e-16,
+       "carried": -0.22078642448777983,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.4231857716678109,
+       "meanpd": 0.12000000000000006,
+       "carried": -0.30318577166781085,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.5978304678609118,
+       "meanpd": 0.0,
+       "carried": -0.5978304678609118,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.35788483090665135,
+     "meanpd": 0.06674234614174775,
+     "carried": -0.2911424847649037,
+     "mi": 0.09310224624156758,
+     "mi_p": 0.0,
+     "rho": 0.20713563112068648
+    },
+    "ridgeWF_cmd": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.07342942524726238,
+       "meanpd": 0.0551112837810915,
+       "carried": -0.018318141466170883,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.08851493985576635,
+       "meanpd": 0.04686625225042003,
+       "carried": -0.04164868760534632,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.10195413905103592,
+       "meanpd": 0.053182082509055616,
+       "carried": -0.04877205654198031,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.2170209870435641,
+       "meanpd": 0.03886553743356703,
+       "carried": -0.17815544960999707,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.1202298727994072,
+     "meanpd": 0.04850628899353354,
+     "carried": -0.07172358380587365,
+     "mi": 0.037598100606933915,
+     "mi_p": 0.04,
+     "rho": 0.048745971463899564
+    },
+    "carried_vref": -0.2911424847649037,
+    "carried_cmd": -0.07172358380587365,
+    "canon_minus_ridge": 0.04057609314989902
+   },
+   "29": {
+    "canon_vref": {
+     "rmse": 0.4576807730285379,
+     "rho": -0.0396021432000875
+    },
+    "meanpd_vref_global": {
+     "rmse": 0.13994284547628724,
+     "rho": 0.0
+    },
+    "meanpd_cmd_global": {
+     "rmse": 0.054257310327733725,
+     "rho": 0.0
+    },
+    "ridgeX0_vref": {
+     "rmse": 0.14339154245774988,
+     "mi": 0.0,
+     "mi_p": 0.93,
+     "rho": 0.02080014200346726,
+     "lam": 3.0
+    },
+    "ridgeWF_vref": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.18973665961010278,
+       "meanpd": 0.14696938456699069,
+       "carried": -0.04276727504311209,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.2355892736332499,
+       "meanpd": 2.220446049250313e-16,
+       "carried": -0.2355892736332497,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.31140906748080804,
+       "meanpd": 0.12000000000000006,
+       "carried": -0.191409067480808,
+       "lam": 0.001
+      },
+      {
+       "t": 400,
+       "rmse": 0.2014427323365084,
+       "meanpd": 0.0,
+       "carried": -0.2014427323365084,
+       "lam": 10.0
+      }
+     ],
+     "rmse": 0.23454443326516727,
+     "meanpd": 0.06674234614174775,
+     "carried": -0.16780208712341954,
+     "mi": 0.05964748040321906,
+     "mi_p": 0.0,
+     "rho": 0.09005506792443603
+    },
+    "ridgeWF_cmd": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.05942698816426037,
+       "meanpd": 0.05237160585660898,
+       "carried": -0.007055382307651389,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.1576893310070911,
+       "meanpd": 0.057832496055418535,
+       "carried": -0.09985683495167255,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.089689246798261,
+       "meanpd": 0.05636113820710153,
+       "carried": -0.03332810859115947,
+       "lam": 0.3
+      },
+      {
+       "t": 400,
+       "rmse": 0.060154861188945995,
+       "meanpd": 0.0462456484439347,
+       "carried": -0.013909212745011293,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.0917401067896396,
+     "meanpd": 0.053202722140765935,
+     "carried": -0.03853738464887367,
+     "mi": 0.08571591560720032,
+     "mi_p": 0.0,
+     "rho": 0.36211963456610213
+    },
+    "carried_vref": -0.16780208712341954,
+    "carried_cmd": -0.03853738464887367,
+    "canon_minus_ridge": 0.2231363397633706
+   }
+  },
+  "poisson": {
+   "7": {
+    "canon_vref": {
+     "rmse": 0.2988047556515793,
+     "rho": 0.12299664991819975
+    },
+    "meanpd_vref_global": {
+     "rmse": 0.13994284547628724,
+     "rho": 0.0
+    },
+    "meanpd_cmd_global": {
+     "rmse": 0.08414535373982333,
+     "rho": 0.0
+    },
+    "ridgeX0_vref": {
+     "rmse": 0.17410374303590617,
+     "mi": 0.0,
+     "mi_p": 0.82,
+     "rho": -0.04903046268103264,
+     "lam": 10.0
+    },
+    "ridgeWF_vref": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.18973665961010278,
+       "meanpd": 0.14696938456699069,
+       "carried": -0.04276727504311209,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.22607022399778895,
+       "meanpd": 2.220446049250313e-16,
+       "carried": -0.22607022399778873,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.14188294218805642,
+       "meanpd": 0.12000000000000006,
+       "carried": -0.02188294218805635,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.12995586171665835,
+       "meanpd": 0.0,
+       "carried": -0.12995586171665835,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.17191142187815162,
+     "meanpd": 0.06674234614174775,
+     "carried": -0.10516907573640388,
+     "mi": 0.22148105154299616,
+     "mi_p": 0.0,
+     "rho": -0.25151306164763954
+    },
+    "ridgeWF_cmd": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.1090093303722274,
+       "meanpd": 0.08941081534132211,
+       "carried": -0.01959851503090529,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.1015095659466605,
+       "meanpd": 0.08531673868591087,
+       "carried": -0.016192827260749623,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.0996221018405211,
+       "meanpd": 0.06968132820203704,
+       "carried": -0.02994077363848406,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.10121942789975007,
+       "meanpd": 0.09560134465581539,
+       "carried": -0.005618083243934674,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.10284010651478977,
+     "meanpd": 0.08500255672127136,
+     "carried": -0.017837549793518412,
+     "mi": 0.029790339811530925,
+     "mi_p": 0.06,
+     "rho": -0.11936231983221371
+    },
+    "carried_vref": -0.10516907573640388,
+    "carried_cmd": -0.017837549793518412,
+    "canon_minus_ridge": 0.1268933337734277
+   },
+   "29": {
+    "canon_vref": {
+     "rmse": 0.3039959407623727,
+     "rho": 0.10829608104886351
+    },
+    "meanpd_vref_global": {
+     "rmse": 0.13994284547628724,
+     "rho": 0.0
+    },
+    "meanpd_cmd_global": {
+     "rmse": 0.07516914058308768,
+     "rho": 0.0
+    },
+    "ridgeX0_vref": {
+     "rmse": 0.17307117806039188,
+     "mi": 0.0,
+     "mi_p": 0.6,
+     "rho": 0.027786679602363668,
+     "lam": 10.0
+    },
+    "ridgeWF_vref": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.18973665961010278,
+       "meanpd": 0.14696938456699069,
+       "carried": -0.04276727504311209,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.23462729369312965,
+       "meanpd": 2.220446049250313e-16,
+       "carried": -0.23462729369312943,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.17831393213161192,
+       "meanpd": 0.12000000000000006,
+       "carried": -0.05831393213161186,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.08071857932421281,
+       "meanpd": 0.0,
+       "carried": -0.08071857932421281,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.17084911618976428,
+     "meanpd": 0.06674234614174775,
+     "carried": -0.10410677004801655,
+     "mi": 0.03655615869140047,
+     "mi_p": 0.0,
+     "rho": -0.16938439403865
+    },
+    "ridgeWF_cmd": {
+     "windows": [
+      {
+       "t": 100,
+       "rmse": 0.09999473119072333,
+       "meanpd": 0.08804468127036408,
+       "carried": -0.011950049920359251,
+       "lam": 1e-05
+      },
+      {
+       "t": 200,
+       "rmse": 0.0853988383667946,
+       "meanpd": 0.06905830797232149,
+       "carried": -0.016340530394473113,
+       "lam": 1e-05
+      },
+      {
+       "t": 300,
+       "rmse": 0.06419308666796195,
+       "meanpd": 0.05120840165441605,
+       "carried": -0.012984685013545896,
+       "lam": 1e-05
+      },
+      {
+       "t": 400,
+       "rmse": 0.09567784140532061,
+       "meanpd": 0.07683742512604128,
+       "carried": -0.018840416279279334,
+       "lam": 1e-05
+      }
+     ],
+     "rmse": 0.08631612440770012,
+     "meanpd": 0.07128720400578573,
+     "carried": -0.015028920401914399,
+     "mi": 0.0,
+     "mi_p": 0.57,
+     "rho": 0.007730282181620899
+    },
+    "carried_vref": -0.10410677004801655,
+    "carried_cmd": -0.015028920401914399,
+    "canon_minus_ridge": 0.1331468245726084
+   }
+  }
+ },
+ "pooled": {
+  "neural": {
+   "canon_vref_rmse_mean": 0.26395929782414357,
+   "canon_vref_rmse_se": 0.006039167665543516,
+   "canon_vref_rho_mean": 0.19380905465487622,
+   "canon_vref_rho_se": 0.02691399687954757,
+   "ridgeX0_vref_rmse_mean": 0.1434826213819346,
+   "ridgeX0_vref_rmse_se": 0.002390775333622245,
+   "ridgeX0_vref_mi_mean": 0.007842958346424005,
+   "ridgeX0_vref_mi_se": 0.005545809031320045,
+   "ridgeX0_vref_mi_p_mean": 0.41500000000000004,
+   "ridgeX0_vref_mi_p_se": 0.1873832970144351,
+   "ridgeX0_vref_rho_mean": 0.15495868469301732,
+   "ridgeX0_vref_rho_se": 0.05542689657075317,
+   "ridgeWF_vref_rmse_mean": 0.11921533563262506,
+   "ridgeWF_vref_rmse_se": 0.00727545581686697,
+   "ridgeWF_vref_mi_mean": 0.2892088151463083,
+   "ridgeWF_vref_mi_se": 0.05681366787787359,
+   "ridgeWF_vref_mi_p_mean": 0.0,
+   "ridgeWF_vref_mi_p_se": 0.0,
+   "ridgeWF_vref_rho_mean": 0.5753859056984785,
+   "ridgeWF_vref_rho_se": 0.042844097205850355,
+   "ridgeWF_vref_meanpd_mean": 0.06674234614174775,
+   "ridgeWF_vref_meanpd_se": 0.0,
+   "ridgeWF_vref_carried_mean": -0.05247298949087731,
+   "ridgeWF_vref_carried_se": 0.00727545581686697,
+   "ridgeWF_cmd_rmse_mean": 0.1905428409057814,
+   "ridgeWF_cmd_rmse_se": 0.002676294932935622,
+   "ridgeWF_cmd_mi_mean": 0.01434053411798962,
+   "ridgeWF_cmd_mi_se": 0.010140288920667505,
+   "ridgeWF_cmd_mi_p_mean": 0.39,
+   "ridgeWF_cmd_mi_p_se": 0.22627416997969518,
+   "ridgeWF_cmd_rho_mean": 0.10394714645386216,
+   "ridgeWF_cmd_rho_se": 0.041745366669190605,
+   "ridgeWF_cmd_meanpd_mean": 0.14106895966663194,
+   "ridgeWF_cmd_meanpd_se": 0.005350499283664781,
+   "ridgeWF_cmd_carried_mean": -0.04947388123914947,
+   "ridgeWF_cmd_carried_se": 0.002674204350729159,
+   "carried_vref": -0.05247298949087731,
+   "carried_vref_se": 0.00727545581686697,
+   "carried_cmd": -0.04947388123914947,
+   "carried_cmd_se": 0.002674204350729159,
+   "canon_minus_ridge": 0.14474396219151853,
+   "canon_minus_ridge_se": 0.0012362881513234534,
+   "n": 2
+  },
+  "zero": {
+   "canon_vref_rmse_mean": 0.6122091146005587,
+   "canon_vref_rmse_se": 0.0,
+   "canon_vref_rho_mean": 0.0,
+   "canon_vref_rho_se": 0.0,
+   "ridgeX0_vref_rmse_mean": 0.14885267272744251,
+   "ridgeX0_vref_rmse_se": 0.006392120797125941,
+   "ridgeX0_vref_mi_mean": 0.01572694209328109,
+   "ridgeX0_vref_mi_se": 0.011120627401487214,
+   "ridgeX0_vref_mi_p_mean": 0.4,
+   "ridgeX0_vref_mi_p_se": 0.26162950903902255,
+   "ridgeX0_vref_rho_mean": 0.12700116431405076,
+   "ridgeX0_vref_rho_se": 0.08925935634869238,
+   "ridgeWF_vref_rmse_mean": 0.13497563571248122,
+   "ridgeWF_vref_rmse_se": 0.01565744720207748,
+   "ridgeWF_vref_mi_mean": 0.2789013140946688,
+   "ridgeWF_vref_mi_se": 0.025072497243150308,
+   "ridgeWF_vref_mi_p_mean": 0.0,
+   "ridgeWF_vref_mi_p_se": 0.0,
+   "ridgeWF_vref_rho_mean": 0.5735138620807348,
+   "ridgeWF_vref_rho_se": 0.0376891869241766,
+   "ridgeWF_vref_meanpd_mean": 0.06674234614174775,
+   "ridgeWF_vref_meanpd_se": 0.0,
+   "ridgeWF_vref_carried_mean": -0.06823328957073348,
+   "ridgeWF_vref_carried_se": 0.015657447202077478,
+   "ridgeWF_cmd_rmse_mean": 0.0,
+   "ridgeWF_cmd_rmse_se": 0.0,
+   "ridgeWF_cmd_mi_mean": 0.0,
+   "ridgeWF_cmd_mi_se": 0.0,
+   "ridgeWF_cmd_mi_p_mean": 1.0,
+   "ridgeWF_cmd_mi_p_se": 0.0,
+   "ridgeWF_cmd_rho_mean": 0.0,
+   "ridgeWF_cmd_rho_se": 0.0,
+   "ridgeWF_cmd_meanpd_mean": 0.0,
+   "ridgeWF_cmd_meanpd_se": 0.0,
+   "ridgeWF_cmd_carried_mean": 0.0,
+   "ridgeWF_cmd_carried_se": 0.0,
+   "carried_vref": -0.06823328957073348,
+   "carried_vref_se": 0.015657447202077478,
+   "carried_cmd": 0.0,
+   "carried_cmd_se": 0.0,
+   "canon_minus_ridge": 0.47723347888807743,
+   "canon_minus_ridge_se": 0.01565744720207749,
+   "n": 2
+  },
+  "random": {
+   "canon_vref_rmse_mean": 0.33644478919664117,
+   "canon_vref_rmse_se": 0.0013328207733427915,
+   "canon_vref_rho_mean": 0.0277274386874144,
+   "canon_vref_rho_se": 0.007450307853835328,
+   "ridgeX0_vref_rmse_mean": 0.1529034577500316,
+   "ridgeX0_vref_rmse_se": 0.003174730336944776,
+   "ridgeX0_vref_mi_mean": 0.014974316842164492,
+   "ridgeX0_vref_mi_se": 0.01058844098273044,
+   "ridgeX0_vref_mi_p_mean": 0.28,
+   "ridgeX0_vref_mi_p_se": 0.16970562748477142,
+   "ridgeX0_vref_rho_mean": 0.04047408832865785,
+   "ridgeX0_vref_rho_se": 0.07155627164158143,
+   "ridgeWF_vref_rmse_mean": 0.12595722669665155,
+   "ridgeWF_vref_rmse_se": 0.007378974351870113,
+   "ridgeWF_vref_mi_mean": 0.25333032058782345,
+   "ridgeWF_vref_mi_se": 0.04246822876403284,
+   "ridgeWF_vref_mi_p_mean": 0.0,
+   "ridgeWF_vref_mi_p_se": 0.0,
+   "ridgeWF_vref_rho_mean": 0.5486062025877794,
+   "ridgeWF_vref_rho_se": 0.0368718199669409,
+   "ridgeWF_vref_meanpd_mean": 0.06674234614174775,
+   "ridgeWF_vref_meanpd_se": 0.0,
+   "ridgeWF_vref_carried_mean": -0.05921488055490378,
+   "ridgeWF_vref_carried_se": 0.0073789743518701085,
+   "ridgeWF_cmd_rmse_mean": 0.3034163905196695,
+   "ridgeWF_cmd_rmse_se": 0.0075600150612395636,
+   "ridgeWF_cmd_mi_mean": 0.00688129264012198,
+   "ridgeWF_cmd_mi_se": 0.004865808689159333,
+   "ridgeWF_cmd_mi_p_mean": 0.575,
+   "ridgeWF_cmd_mi_p_se": 0.22273863607376246,
+   "ridgeWF_cmd_rho_mean": 0.05251396164784386,
+   "ridgeWF_cmd_rho_se": 0.0163111585673566,
+   "ridgeWF_cmd_meanpd_mean": 0.21238221800817478,
+   "ridgeWF_cmd_meanpd_se": 0.0032752574252593075,
+   "ridgeWF_cmd_carried_mean": -0.0910341725114947,
+   "ridgeWF_cmd_carried_se": 0.010835272486498865,
+   "carried_vref": -0.05921488055490378,
+   "carried_vref_se": 0.0073789743518701085,
+   "carried_cmd": -0.0910341725114947,
+   "carried_cmd_se": 0.010835272486498865,
+   "canon_minus_ridge": 0.21048756249998962,
+   "canon_minus_ridge_se": 0.008711795125212904,
+   "n": 2
+  },
+  "mask0.5": {
+   "canon_vref_rmse_mean": 0.4280708485425441,
+   "canon_vref_rmse_se": 0.02093737839446778,
+   "canon_vref_rho_mean": -0.00676607113084338,
+   "canon_vref_rho_se": 0.023218609227692703,
+   "ridgeX0_vref_rmse_mean": 0.14229922238634796,
+   "ridgeX0_vref_rmse_se": 0.0007723869297144713,
+   "ridgeX0_vref_mi_mean": 0.0,
+   "ridgeX0_vref_mi_se": 0.0,
+   "ridgeX0_vref_mi_p_mean": 0.7450000000000001,
+   "ridgeX0_vref_mi_p_se": 0.13081475451951127,
+   "ridgeX0_vref_rho_mean": 0.04243578648416928,
+   "ridgeX0_vref_rho_se": 0.015298710927645696,
+   "ridgeWF_vref_rmse_mean": 0.2962146320859093,
+   "ridgeWF_vref_rmse_se": 0.04360741578326932,
+   "ridgeWF_vref_mi_mean": 0.07637486332239332,
+   "ridgeWF_vref_mi_se": 0.011828045893652148,
+   "ridgeWF_vref_mi_p_mean": 0.0,
+   "ridgeWF_vref_mi_p_se": 0.0,
+   "ridgeWF_vref_rho_mean": 0.14859534952256126,
+   "ridgeWF_vref_rho_se": 0.0413942300906044,
+   "ridgeWF_vref_meanpd_mean": 0.06674234614174775,
+   "ridgeWF_vref_meanpd_se": 0.0,
+   "ridgeWF_vref_carried_mean": -0.2294722859441616,
+   "ridgeWF_vref_carried_se": 0.04360741578326934,
+   "ridgeWF_cmd_rmse_mean": 0.1059849897945234,
+   "ridgeWF_cmd_rmse_se": 0.010072653369962334,
+   "ridgeWF_cmd_mi_mean": 0.06165700810706712,
+   "ridgeWF_cmd_mi_se": 0.017012216641284075,
+   "ridgeWF_cmd_mi_p_mean": 0.02,
+   "ridgeWF_cmd_mi_p_se": 0.014142135623730949,
+   "ridgeWF_cmd_rho_mean": 0.20543280301500086,
+   "ridgeWF_cmd_rho_se": 0.11079432111241799,
+   "ridgeWF_cmd_meanpd_mean": 0.05085450556714974,
+   "ridgeWF_cmd_meanpd_se": 0.001660439862898652,
+   "ridgeWF_cmd_carried_mean": -0.05513048422737366,
+   "ridgeWF_cmd_carried_se": 0.011733093232860986,
+   "carried_vref": -0.2294722859441616,
+   "carried_vref_se": 0.04360741578326934,
+   "carried_cmd": -0.05513048422737366,
+   "carried_cmd_se": 0.011733093232860986,
+   "canon_minus_ridge": 0.1318562164566348,
+   "canon_minus_ridge_se": 0.0645447941777371,
+   "n": 2
+  },
+  "poisson": {
+   "canon_vref_rmse_mean": 0.30140034820697603,
+   "canon_vref_rmse_se": 0.0018353610971183123,
+   "canon_vref_rho_mean": 0.11564636548353163,
+   "canon_vref_rho_se": 0.0051974359674037554,
+   "ridgeX0_vref_rmse_mean": 0.17358746054814903,
+   "ridgeX0_vref_rmse_se": 0.00036506684810093935,
+   "ridgeX0_vref_mi_mean": 0.0,
+   "ridgeX0_vref_mi_se": 0.0,
+   "ridgeX0_vref_mi_p_mean": 0.71,
+   "ridgeX0_vref_mi_p_se": 0.07778174593052022,
+   "ridgeX0_vref_rho_mean": -0.010621891539334485,
+   "ridgeX0_vref_rho_se": 0.0271589611099807,
+   "ridgeWF_vref_rmse_mean": 0.17138026903395795,
+   "ridgeWF_vref_rmse_se": 0.0003755817779758632,
+   "ridgeWF_vref_mi_mean": 0.12901860511719832,
+   "ridgeWF_vref_mi_se": 0.0653808228727795,
+   "ridgeWF_vref_mi_p_mean": 0.0,
+   "ridgeWF_vref_mi_p_se": 0.0,
+   "ridgeWF_vref_rho_mean": -0.21044872784314478,
+   "ridgeWF_vref_rho_se": 0.02903686889806623,
+   "ridgeWF_vref_meanpd_mean": 0.06674234614174775,
+   "ridgeWF_vref_meanpd_se": 0.0,
+   "ridgeWF_vref_carried_mean": -0.10463792289221022,
+   "ridgeWF_vref_carried_se": 0.0003755817779758632,
+   "ridgeWF_cmd_rmse_mean": 0.09457811546124495,
+   "ridgeWF_cmd_rmse_se": 0.005842109900064133,
+   "ridgeWF_cmd_mi_mean": 0.014895169905765462,
+   "ridgeWF_cmd_mi_se": 0.010532475647292545,
+   "ridgeWF_cmd_mi_p_mean": 0.31499999999999995,
+   "ridgeWF_cmd_mi_p_se": 0.18031222920256956,
+   "ridgeWF_cmd_rho_mean": -0.0558160188252964,
+   "ridgeWF_cmd_rho_se": 0.044934020361312756,
+   "ridgeWF_cmd_meanpd_mean": 0.07814488036352854,
+   "ridgeWF_cmd_meanpd_se": 0.0048491094557426085,
+   "ridgeWF_cmd_carried_mean": -0.016433235097716405,
+   "ridgeWF_cmd_carried_se": 0.0009930004443215225,
+   "carried_vref": -0.10463792289221022,
+   "carried_vref_se": 0.0003755817779758632,
+   "carried_cmd": -0.016433235097716405,
+   "carried_cmd_se": 0.0009930004443215225,
+   "canon_minus_ridge": 0.13002007917301805,
+   "canon_minus_ridge_se": 0.0022109428750941755,
+   "n": 2
+  }
+ },
+ "criteria": {
+  "carried_vref_null_floor": -0.10463792289221022,
+  "carried_cmd_null_floor": -0.016433235097716405,
+  "carried_vref_neural": -0.05247298949087731,
+  "carried_vref_zero": -0.06823328957073348,
+  "carried_vref_random": -0.05921488055490378,
+  "carried_vref_mask0.5": -0.2294722859441616,
+  "carried_cmd_neural": -0.04947388123914947,
+  "carried_vref_neural_minus_null": 0.05216493340133291,
+  "carried_cmd_neural_minus_null": -0.03304064614143307,
+  "canon_minus_ridge_wf_neural": 0.14474396219151853,
+  "ridgeWF_vref_mi_sig_frac_neural": 1.0,
+  "ridgeWF_vref_mi_sig_frac_poisson": 1.0,
+  "ridgeX0_vref_mi_sig_frac_poisson": 0.0,
+  "null_still_dead": true,
+  "neural_above_null_vref": true,
+  "neural_above_null_cmd": false,
+  "readout_improvable": true,
+  "n_seeds": 2
+ },
+ "verdict": "Gate D (closed loop, walk-forward lag=48, n=2): dead-null carries vref -0.105 / cmd -0.016 (stays dead=True); neural carries vref -0.052 (+0.052 vs null) and cmd -0.049 (-0.033 vs null); zero -0.068, random -0.059, mask0.5 -0.229; the causal linear readout beats the loop's fixed readout by 0.145 RMSE on vref (readout improvable=True)."
+}
