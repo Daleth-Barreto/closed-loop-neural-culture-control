@@ -1,4 +1,4 @@
-% Shared manuscript body for the closed-loop substrate validation.
+﻿% Shared manuscript body for the closed-loop substrate validation.
 % Included by main.tex (signed) and main_anon.tex (double-anonymous).
 %
 % ICRA 2027 style: 8 pages including references, double column.
@@ -238,7 +238,7 @@ substrates.
 
 \subsection{Task-tracking battery}
 
-Every run lasts 12\,s (500 outer ticks) on flat ground. The task is a velocity
+Every run lasts 12.5\,s (500 outer ticks) on flat ground. The task is a velocity
 profile injected on channel 62; five profiles are used: \emph{baseline}
 (0.5$\rightarrow$0.8$\rightarrow$0.5\,m/s), \emph{multi\_step}, \emph{sine},
 \emph{descend}, and \emph{pulse}. Five modes are compared per profile:
@@ -281,7 +281,7 @@ under a constant $0.5\,\mathrm{m/s}$ march duty, comparing the neural closed
 loop against the reference policy. Statistics: Fisher exact test for survival,
 Welch $t$-test for traveled distance. A lateral impulse frontier and a
 sustained-push torque probe establish the loop's physical authority envelope,
-and the per-tick cadence is recorded to verify the 25\,ms contract deadline.
+and the per-tick cadence is recorded to track the 25\,ms contract tick.
 Each run also records whether the walker falls.
 
 \section{Results}
@@ -294,7 +294,7 @@ Fig.~\ref{fig:tracking} juxtaposes it with the Izhikevich replicate. On all five
 profiles and against all three nulls, the intact loop is significantly better:
 6/6 seeds point the same way, giving $p=0.0156$ one-sided
 ($p=0.03125$ two-sided) on every comparison---the $p$-value floor for six
-seeds---with large paired effect sizes (baseline $d_z=-38.9$ vs.\ zero,
+seeds---with large paired effect sizes (baseline $d_z=-39.2$ vs.\ zero,
 $-8.6$ vs.\ random, $-2.4$ vs.\ mask0.5; range across profiles
 $d_z\in[-2.4,-3.0]$ vs.\ mask0.5).
 
@@ -306,16 +306,18 @@ why random must be present---a naive ``brain \emph{vs}.\ no brain'' comparison
 cannot separate the decoder's coupling from the substrate's information. The
 dead substrate \texttt{poisson} sits strictly between \texttt{neural} and the
 uncoupled modes on every profile: statistically matched spikes, but no state,
-track worse than the intact spikes. The 50\,\% lesion degrades the decode by
-$+40$--$+96\,\%$ RMSE and in some seeds erases channel 62 entirely, which is the
-mechanism by which the task signal disappears.
+track worse than the intact spikes. The 50\,\% lesion raises RMSE by
+$+59$--$+67\,\%$ on the profile means (per-seed range $+18$--$+100\,\%$) and in
+some seeds erases channel 62 entirely, which is the mechanism by which the task
+signal disappears.
 
 \begin{table}[t]
 \centering
 \caption{Tracking RMSE (mean$\pm$std) by profile and mode, rate-code substrate,
 six seeds. Braces bold the best mode per profile.}
 \label{tab:tracking}
-\small
+\footnotesize
+\setlength{\tabcolsep}{1pt}
 \begin{tabular}{lccccc}
 \toprule
 Profile & \texttt{neural} & \texttt{zero} & \texttt{random}
@@ -370,10 +372,12 @@ Table~\ref{tab:gate} reports MI and TE. Three readings matter.
 First, $\mathrm{MI}(\mathrm{cmd};\mathrm{plant})$ is maximal for the intact
 loop and zero for the uncoupled decoders: the task signal exists in the plant
 only when the decoder is coupled to the substrate. Second, transfer entropy
-along $c_{62}\rightarrow\mathrm{cmd}$ is nonzero only for the intact loop and
-exactly zero for \texttt{zero}, \texttt{mask0.5}, and the dead substrate---the
-causal chain through the spikes is present for the substrate that carries state
-and absent otherwise. Third, both quantities reproduce---attenuated, as
+along $c_{62}\rightarrow\mathrm{cmd}$ is exactly zero for \texttt{zero},
+\texttt{mask0.5}, and the dead substrate in both substrates, and nonzero for
+the intact loop; the uncoupled decoder's small residual TE inherits the shared
+task envelope rather than the causal link---the chain through the spikes is
+present only for the substrate that carries state. Third, both quantities
+reproduce---attenuated, as
 expected for a dynamical source---on the Izhikevich substrate, and the dead
 substrate remains exactly zero in both substrates despite statistically
 matched spike rates. The Poisson `spikes' are indistinguishable from real ones
@@ -413,8 +417,8 @@ MI persists under lesion because the intact plant still tracks.
 Fig.~\ref{fig:tracking} (right) reproduces the entire ordering on the
 Izhikevich microcircuit at full power: neural best on all five profiles
 (baseline $0.257\pm0.011$ vs.\ zero $0.612$, random $0.337$, mask0.5 $0.416$,
-poisson $0.307$), $p=0.0156$ on every profile and comparison, $d_z=-33.2$ vs.\
-zero, $-6.5$ vs.\ random, $-3.6$ vs.\ mask0.5. The closed-loop advantage is
+poisson $0.307$), $p=0.0156$ on every profile and comparison, $d_z=-33.9$ vs.\
+zero, $-6.7$ vs.\ random, $-3.5$ vs.\ mask0.5. The closed-loop advantage is
 therefore not tied to the particular pattern generator that reads the electrode
 contract. Gate~A replicates on the second substrate as well
 (Table~\ref{tab:gate}, right).
@@ -470,7 +474,8 @@ $\times$ plant), not of the spike stream alone.
 causal linear readout RMSE; mean$\pm$sd over six paired seeds; RMSE units,
 $\mathrm{m/s}$).}
 \label{tab:gated}
-\small
+\footnotesize
+\setlength{\tabcolsep}{1pt}
 \begin{tabular}{lcc|cc}
 \toprule
  & \multicolumn{2}{c|}{\textbf{rate-code}} &
@@ -580,12 +585,15 @@ are outside the loop's authority, and every mode---including the torque hub---fa
 under them. The lateral impulse frontier is closable for durations
 $<0.45\,$s at $\leq140\,$N (the base policy absorbs the impulse; the loop
 closes the latency before the instability develops). Longitudinal, a forward
-push at 0.3\,s/150\,N falls, while the mirror backward push is survived by all
-modes. These numbers bound, rather than flatter, the claim.
+push at 0.3\,s/150\,N falls, while the mirror backward push at 0.3\,s/150\,N is
+survived. These numbers bound, rather than flatter, the claim.
 
-\textit{Latency.} The contract tick is 25\,ms and the cadence histograms confirm
-the round trip (produce frames $\rightarrow$ read newest $\rightarrow$ decode
-$\rightarrow$ stimulate) fits inside it. The information the command is derived
+\textit{Latency.} The contract tick is 25\,ms of loop time, and the committed
+telemetry logs the per-tick cadence of every run (the wall-clock tick interval
+reflects host throughput and can exceed the 25\,ms deadline on this machine; the
+round trip produce frames $\rightarrow$ read newest $\rightarrow$ decode
+$\rightarrow$ stimulate remains sub-contract in loop time). The information the
+command is derived
 from, however, is up to $1.2\,$s old: the hub integrates a trailing 600-step
 window at 2\,ms. The loop is therefore \emph{liquidity}-limited by its
 information window, not by its contract tick---the mechanism behind the ramp

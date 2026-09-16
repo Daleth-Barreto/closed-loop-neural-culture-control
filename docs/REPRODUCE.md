@@ -156,9 +156,10 @@ computation is not supported.
 - Authority: torque headroom ~30 N m vs ~112 N m tipping moment (sustained
   140 N push); lateral impulse closable for duration < 0.45 s at <= 140 N;
   longitudinal forward/back push asymmetry recorded.
-- Latency: contract tick 25 ms respected; spike-window (information) latency
-  up to 1.2 s (600 hub steps at 2 ms). The loop is liquidity-limited, not
-  contract-limited.
+- Latency: contract tick 25 ms of loop time; per-tick wall-clock cadence is
+  logged in every run (may overrun the 25 ms wall-clock deadline on slower
+  hosts); spike-window (information) latency up to 1.2 s (600 hub steps at
+  2 ms). The loop is liquidity-limited, not contract-limited.
 
 ## Licenses
 
