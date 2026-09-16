@@ -1,0 +1,26 @@
+Third-party notices and licensing.
+
+1. cl-sdk (Cortical Labs)
+   -----------------------
+   The experimental environment installs the Cortical Labs SDK (`cl-sdk`,
+   version pinned in requirements.lock.txt). It is distributed under the
+   Creative Commons Attribution-NonCommercial (CC BY-NC) license and is used
+   here strictly for academic / non-commercial research. Redistributing or
+   using the SDK for commercial purposes is outside the scope of this
+   repository's permission.
+
+2. G1 model assets and policy (Unitree Robotics)
+   ----------------------------------------------
+   The files under third_party/unitree_rl_gym/ (robot meshes, URDF/XML
+   models, and the frozen policy checkpoint deploy/pre_train/g1/motion.pt)
+   are vendored from the Unitree RL-Gym project
+   (https://github.com/unitreerobotics/unitree_rl_gym) under its own license,
+   included verbatim at third_party/unitree_rl_gym/LICENSE.
+
+3. This repository's own code
+   ---------------------------
+   MIT; see LICENSE.
+
+No biological tissue is cultivated or used, and no physical closed-loop
+culture platform is required: the spiking culture substrate is simulated
+in-process.

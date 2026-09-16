@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite it as follows."
+title: "closed-loop-neural-culture-control"
+abstract: >-
+  Closed-loop validation that a load-bearing control function survives a
+  simulated spiking culture substrate on a Unitree G1 humanoid (MuJoCo),
+  measured with task-tracking ablations (zero/random/lesion/dead-substrate
+  nulls), exact permutation statistics, mutual information and transfer
+  entropy, substrate interchangeability (rate-code and Izhikevich), terrain
+  outcomes, and an explicit authority/latency boundary. Companion manuscript
+  under paper/.
+keywords:
+  - neuromorphic computing
+  - spiking neural networks
+  - closed-loop control
+  - humanoid locomotion
+  - mutual information
+  - transfer entropy
+  - falsification
+license: MIT
+version: 1.0.0
+date-released: "2026-09-15"
+authors:
+  - family-names: Hernandez Barreto
+    given-names: Alan Daleth
+    email: l23090959@zacatepec.tecnm.mx
+    affiliation: "Instituto Tecnologico de Zacatepec, Tecnologico Nacional de Mexico"
+    orcid: "https://orcid.org/0009-0007-7439-1920"
+repository-code: "https://github.com/Daleth-Barreto/closed-loop-neural-culture-control"

@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Editors / OS
+.idea/
+.vscode/
+.ipynb_checkpoints/
+.DS_Store
+
+# Logs
+*.log
+*_log.txt
+
+# LaTeX build artefacts
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/main.bbl
+paper/main.blg
+paper/main_anon.bbl
+paper/main_anon.blg
+
+# results/: tracked subtree, only committed json/png artefacts
+results/*
+!results/*.json
+!results/*.png
